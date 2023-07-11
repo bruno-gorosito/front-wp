@@ -1,6 +1,9 @@
+'use client'
 import Header from '@/app/components/header'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import { Provider } from 'react-redux'
+import store from './redux/store'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,10 +22,12 @@ export default function RootLayout({
       <head>
         <link rel="shortcut icon" href="/favicon/favicon.ico" />
       </head>
-      <body className={inter.className}>
-        <Header />
-        {children}
-      </body>
+          <body className={inter.className}>
+              <Provider store={store}>
+                <Header />
+                {children}
+              </Provider>
+          </body>
     </html>
   )
 }
