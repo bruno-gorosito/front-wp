@@ -19,10 +19,10 @@ const Page = () => {
     useEffect(() => {
         
         obtenerSongs();
-        // context?.socket.on('loadNewSong', (data: any) => {
-        //     console.log(data)
-        //     obtenerSongs();
-        // })
+        context?.socket.on('loadNewSong', (data: any) => {
+            console.log(data)
+            obtenerSongs();
+        })
     }, [context?.socket])
 
     return(
