@@ -71,10 +71,6 @@ const Page = () => {
 
     }
 
-    useEffect(() => {
-        console.log(process.env.NEXT_PUBLIC_BACK_AXIOS);
-        console.log(process.env.NEXT_PUBLIC_BACK);
-    })
 
     return (
         <>

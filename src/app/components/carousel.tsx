@@ -49,9 +49,10 @@ const Carrusel = () => {
                 showStatus={false}
                 showThumbs={true}
                 swipeable={true}
+                autoPlay={true}
                 emulateTouch={true}
                 infiniteLoop={true}
-                interval={1000}
+                interval={3000}
             >
                 {slides.map(slide => (
                     <>

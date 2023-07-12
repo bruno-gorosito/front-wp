@@ -3,6 +3,7 @@
 import { useContext, useEffect } from "react";
 import { SongContext } from "../context/songContext";
 import { axiosClient } from "@/config/axios";
+import Link from "next/link";
 
 
 const Page = () => {
@@ -44,12 +45,17 @@ const Page = () => {
                             <tbody>
                                 {context?.songs.map(song => (
                                         <tr className="border-b dark:border-neutral-500" key={`${song._id}`}>
-                                            <td className="normal-case whitespace-nowrap px-6 py-4 font-medium">{song.name}</td>
+                                            <Link href={`./songs/${song._id}`}>
+                                                <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.name}</td>
+                                            
+                                            </Link>
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.author}</td>
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.tone}</td>
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.intensity}</td>
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">
-                                                <button>
+                                                <button
+                                                    
+                                                >
                                                     Editar
                                                 </button>
                                                 <button>

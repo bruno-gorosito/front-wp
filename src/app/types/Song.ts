@@ -9,7 +9,8 @@ export type Song = {
     author?: String;
     _id?: String;
     scale?: String;
-    intensity?: String
+    intensity?: String;
+    idVideo?: String;
 }
 
 
