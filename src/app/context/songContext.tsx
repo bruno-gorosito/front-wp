@@ -13,6 +13,7 @@ const SongProvider = ({children}: {children: ReactNode}) => {
         songSelected: null,
         socket: io(`${process.env.NEXT_PUBLIC_BACK}`)
     }
+    
 
 
     const [state, dispatch] = useReducer(SongReducer, initialState);
