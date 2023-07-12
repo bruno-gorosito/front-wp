@@ -10,10 +10,11 @@ import { useEffect, useState } from "react";
 const Page = ({params}: {params: {id: String}}) => {
 
     const [song, setSong] = useState<Song | null>(null);
+    const router = useRouter();
 
     const ola = async() => {
         const res = await getData(params.id);
-        res === undefined ? useRouter().push('/') : null;
+        res === undefined ? router.push('/') : null;
         setSong(res);
     }
 
