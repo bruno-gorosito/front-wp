@@ -11,7 +11,7 @@ const SongProvider = ({children}: {children: ReactNode}) => {
     const initialState: StateReducer = {
         songs: [],
         songSelected: null,
-        socket: io("http://localhost:4960")
+        socket: io(`${process.env.NEXT_PUBLIC_BACK}`)
     }
 
 
