@@ -26,7 +26,7 @@ const Carrusel = () => {
             img: foto1
         },
         {
-            title: 'Coro inestable',
+            title: 'Coro (in)estable',
             desc: "En esta navidad tuvimos la participación del coro (in)estable de nuestra iglesia. ",
             img: foto2
         },

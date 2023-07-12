@@ -1,14 +1,17 @@
 'use client'
 
-import { ChangeEvent, FormEvent, SyntheticEvent, useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import Swal from 'sweetalert2'
+import { io } from "socket.io-client";
 import { SongContext } from "../context/songContext";
 import { Song } from "../types/Song";
-
+import { useRouter } from "next/navigation";
 
 
 const Page = () => {
 
     const context = useContext(SongContext);
+    const router = useRouter();
 
     const grado = ["Do", "Do#", "Re", "Re#", "Mi", "Fa", "Fa#", "Sol", "Sol#", "La", "La#", "Si"];
     const menOMay = ["Mayor", "Menor"];
@@ -25,18 +28,47 @@ const Page = () => {
     const handleState = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> ) => {
         setNewSong({
             ...newSong,
-            [e.target.name] : e.target.value.toLowerCase()
+            [e.target.name] : e.target.value
         })
     }
 
 
-    const handleSelects = (e: SyntheticEvent<HTMLSelectElement> ) => {
-        console.log("handle select");
-    }
-
-    const submitNewSong = (e: FormEvent<HTMLFormElement>) => {
+    const submitNewSong = async(e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        context?.createNewSong(newSong);
+        
+        const res: any = await context?.createNewSong(newSong);
+        console.log(res);
+        if (res.status === 200) {
+            //CASO CANCION AÑADIDA
+            setNewSong({
+                name:"",
+                author:"",
+                tone: "",
+                scale: "",
+                lyric: "",
+                intensity: ""
+            })
+
+            
+            Swal.fire({
+                icon: 'success',
+                title: 'Cancion añadida',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#06B6D4'
+            })
+
+            context?.socket.emit('newSong', newSong)
+
+            setTimeout(() => {
+                router.push('/')
+            }, 1000);
+
+            return
+        }
+
+
+        
+
     }
 
 
@@ -56,6 +88,7 @@ const Page = () => {
                             <input 
                                 type="text"
                                 name="name"
+                                value={`${newSong.name}`}
                                 onChange={e => handleState(e)}
                                 className=" w-full lg:w-5/6 border border-black/30 rounded px-4 py-1 block outline-1"
                             />
@@ -65,8 +98,9 @@ const Page = () => {
                             <input 
                                 type="text"
                                 name="author"
+                                value={`${newSong.author}`}
                                 onChange={e => handleState(e)}
-                                className=" w-full lg:w-5/6 border border-black/30 rounded px-4 py-1 block outline-1"
+                                className=" w-full capitalize lg:w-5/6 border border-black/30 rounded px-4 py-1 block outline-1"
                             />
                         </div>
                         <div className="w-full lg:w-1/3 border-transparent border-r-8 flex flex-wrap justify-center items-center">
@@ -74,6 +108,7 @@ const Page = () => {
                             <select className="w-full lg:w-1/2 border border-black/30 rounded py-1 px-2"
                                 
                                 name="tone"
+                                value={`${newSong.tone}`}
                                 onChange={e => handleState(e)}
                             >
                                 <option value="">No definido</option>
@@ -86,6 +121,7 @@ const Page = () => {
                             <label className="w-full lg:w-1/2  lg:text-right lg:px-10 my-2">Escala: </label>
                             <select className="w-full lg:w-1/2 border border-black/30 py-1 rounded px-2"
                                 name="scale"
+                                value={`${newSong.scale}`}
                                 onChange={e => handleState(e)}
                             >
                                 <option value="">No definido</option>
@@ -98,6 +134,7 @@ const Page = () => {
                             <label className="w-full lg:w-1/2  lg:text-right lg:px-10 my-2">Intensidad: </label>
                             <select className="w-full lg:w-1/2 border border-black/30 py-1 rounded px-2"
                                 name="intensity"
+                                value={`${newSong.intensity}`}
                                 onChange={e => handleState(e)}
                             >
                                 <option value="">No definido</option>
@@ -109,8 +146,9 @@ const Page = () => {
                         <div className="w-full border-transparent border-r-8 flex flex-wrap justify-center items-start">
                             <label className="w-full lg:w-1/6 lg:text-right lg:px-10 my-2">Letra: </label>
                             <textarea 
-                                className=" w-full lg:w-5/6 border border-black/30 rounded p-2 block outline-1 h-96"
+                                className=" w-full normal-case lg:w-5/6 border border-black/30 rounded p-2 block outline-1 h-96"
                                 name="lyric"
+                                value={`${newSong.lyric}`}
                                 onChange={e => handleState(e)}
                             >
                             </textarea>

@@ -33,7 +33,7 @@ header.active {
     }
 
     .menuDesplegable.active {
-        height: 10.5em;
+        height: 7em;
         transform: scaleY(1);
     }
 }

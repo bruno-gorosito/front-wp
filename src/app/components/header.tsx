@@ -44,9 +44,9 @@ const Header = () => {
                         <li className="p-4 hover:bg-gray-300 cursor-pointer">
                             <Link href="/songs">Canciones</Link>
                         </li>
-                        <li className="p-4 hover:bg-gray-300  cursor-pointer">
+                        {/* <li className="p-4 hover:bg-gray-300  cursor-pointer">
                             <Link href="/lyrics">Letras</Link>
-                        </li>
+                        </li> */}
                         <li className="p-4 hover:bg-gray-300 cursor-pointer">
                             <Link href='/add-song'>Añadir canciones</Link>
                         </li>
