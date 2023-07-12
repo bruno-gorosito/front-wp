@@ -46,8 +46,8 @@ const Page = () => {
                                         <tr className="border-b dark:border-neutral-500" key={`${song._id}`}>
                                             <td className="normal-case whitespace-nowrap px-6 py-4 font-medium">{song.name}</td>
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.author}</td>
-                                            <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.tone}</td>
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.intensity}</td>
+                                            <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.tone}</td>
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">
                                                 <button>
                                                     Editar
