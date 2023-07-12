@@ -41,15 +41,20 @@ const Header = () => {
 
                     </h1>
                     <ul className={`${styles.menuDesplegable} ${menu ? styles.active : ''}  bg-gray-200`}>
-                        <li className="p-4 hover:bg-gray-300 cursor-pointer">
-                            <Link href="/songs">Canciones</Link>
-                        </li>
+                        <Link href="/songs">
+                            <li className="p-4 hover:bg-gray-300 cursor-pointer">
+                            Canciones
+                            </li>    
+                        </Link>
+                        
                         {/* <li className="p-4 hover:bg-gray-300  cursor-pointer">
                             <Link href="/lyrics">Letras</Link>
                         </li> */}
-                        <li className="p-4 hover:bg-gray-300 cursor-pointer">
-                            <Link href='/add-song'>Añadir canciones</Link>
-                        </li>
+                        <Link href='/add-song'>
+                            <li className="p-4 hover:bg-gray-300 cursor-pointer">
+                            Añadir canciones
+                            </li>
+                        </Link>
                     </ul>
                 </div>
             </header>
