@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <Carrusel />
-      <div className='flex max-w-6xl mx-auto my-4 flex-wrap px-4'>
+      {/* <div className='flex max-w-6xl mx-auto my-4 flex-wrap px-4'>
         
         <div className='flex w-full md:w-2/3 items-center flex-wrap lg:border-r-8 lg:border-transparent' >
           <p className='text-4xl font-normal text-center italic lg:-mb-20'>
@@ -25,7 +25,7 @@ export default function Home() {
             className='aspect-square object-cover w-2/3 md:w-full rounded-full'
           />
         </div>
-      </div>
+      </div> */}
       {/* <Redes /> */}
     </>
   )
