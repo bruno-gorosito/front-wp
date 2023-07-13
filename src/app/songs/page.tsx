@@ -28,7 +28,7 @@ const Page = () => {
 
     return(
         <>
-            <h2 className="text-2xl text-center my-6 ">Canciones</h2>
+            <h2 className="text-2xl text-center mt-8 mb-6">Canciones</h2>
             <div className="max-w-7xl mx-auto overflow-x-scroll md:overflow-auto">
                 {context?.songs.length !== 0
                     ? (
