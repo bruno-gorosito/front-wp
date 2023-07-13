@@ -11,6 +11,7 @@ import foto4 from './assets/equipo4.jpg'
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 export type Slide = {
+    id: string;
     title: string;
     desc: string;
     img: StaticImport;
@@ -21,21 +22,25 @@ const Carrusel = () => {
 
     const slides: Slide[] = [
         {
+            id: "1",
             title: 'Musical de Pascua',
             desc: "En estas pascuas nos reunimos para recordar que Él murió por nosotros... ¡y que volverá!",
             img: foto1
         },
         {
+            id: "2",
             title: 'Coro (in)estable',
             desc: "En esta navidad tuvimos la participación del coro (in)estable de nuestra iglesia. ",
             img: foto2
         },
         {
+            id: "3",
             title: 'Tiempo de alabanza en el nuestro Parque Furniss',
             desc: "Recordamos el tiempo de alabanza en nuestro amado Parque Furniss",
             img: foto3
         },
         {
+            id: "4",
             title: 'Equipo de JX',
             desc: "Jovenes colaborando en el campamento de JX mediante canciones en el tiempo de alabanza.",
             img: foto4
@@ -47,24 +52,24 @@ const Carrusel = () => {
             <Carousel
                 showArrows={false}
                 showStatus={false}
-                showThumbs={true}
+                showThumbs={false}
                 swipeable={true}
                 autoPlay={true}
                 emulateTouch={true}
                 infiniteLoop={true}
-                interval={3000}
+                interval={4000}
             >
                 {slides.map(slide => (
-                    <>
-                        <div>
-                            <Image src={slide.img} alt={slide.title} className={styles.carrusel}/>
-                            <div className="legend hidden md:block !bg-black/60">
-                                <h2 className="title">{slide.title}</h2>
-                                <p>{slide.desc}</p>
-                            </div>
+                    <div
+                        key={slide.id}
+                    >
+                        <Image src={slide.img} alt={slide.title} className={styles.carrusel}/>
+                        <div className="legend hidden md:block !bg-black/60">
+                            <h2 className="title">{slide.title}</h2>
+                            <p>{slide.desc}</p>
                         </div>
-                    </>
-                ))}
+                    </div>
+                    ))}
             </Carousel>
         </>
 

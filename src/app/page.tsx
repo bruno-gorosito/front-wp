@@ -26,7 +26,7 @@ export default function Home() {
           />
         </div>
       </div>
-      <Redes />
+      {/* <Redes /> */}
     </>
   )
 }

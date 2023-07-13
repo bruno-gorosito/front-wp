@@ -19,7 +19,7 @@ const SongProvider = ({children}: {children: ReactNode}) => {
     const [state, dispatch] = useReducer(SongReducer, initialState);
 
     const createNewSong = async(newSong: Song) => {
-        if (newSong.scale === "menor" && !newSong.tone?.endsWith("m")) {
+        if (newSong.scale?.toLowerCase() === "menor" && !newSong.tone?.endsWith("m") && newSong.tone?.trim() !== "") {
             newSong.tone = newSong.tone + "m";
         }
         if (newSong.intensity?.trim() === '') {

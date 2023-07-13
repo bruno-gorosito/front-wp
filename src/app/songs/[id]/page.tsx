@@ -12,7 +12,7 @@ const Page = ({params}: {params: {id: String}}) => {
     const [song, setSong] = useState<Song | null>(null);
     const router = useRouter();
 
-    const ola = async() => {
+    const loadSong = async() => {
         const res = await getData(params.id);
         res === undefined ? router.push('/') : null;
         setSong(res);
@@ -20,20 +20,38 @@ const Page = ({params}: {params: {id: String}}) => {
 
 
     useEffect(() => {
-        ola();
+        loadSong();
     }, [])
     
     
     return(
         <>
-            <div>
-                <h2>{song?.name}</h2>
-                <h2>{song?.intensity}</h2>
-                <h2>{song?.tone}</h2>
-                <h2>{song?.lyric}</h2>
+            <div className="w-full max-w-7xl mx-auto px-4 mb-8">
+                <div className="flex flex-wrap py-4">
+                    <div className=" w-full md:w-1/2 tracking-wide mb-4">
+                        <h2 className="my-4 text-3xl">{song?.name}</h2>
+                        <h3>Autor: &nbsp;&nbsp;{song?.author !== "Sin definir" ? song?.author : null}</h3>
+                        <h3>Intensidad: &nbsp;&nbsp;{song?.intensity}</h3>
+                        <h3>Tono: &nbsp;&nbsp;{song?.tone}</h3>
+                    </div>
+                    <div className="w-full md:w-1/2 flex justify-end">
+                        <iframe className="w-full aspect-video" src={`https://www.youtube.com/embed/${song?.idVideo}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;  picture-in-picture; web-share" allowFullScreen></iframe>
+                    </div>
+                </div>
+                
+                <div
+
+                >
+                    <h2 className="text-2xl border-b py-2 mb-4">
+                        Letra: 
+                    </h2>
+                    <p className="whitespace-pre-line">
+                        {song?.lyric}
+                    </p>
+                </div>
             </div>
 
-            <iframe width="560" height="315" src={`https://www.youtube.com/embed/${song?.idVideo}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;  picture-in-picture; web-share" allowFullScreen></iframe>
+            
         </>
     )
 }
