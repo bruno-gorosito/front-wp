@@ -29,7 +29,7 @@ const Page = ({params}: {params: {id: String}}) => {
             <div className="w-full max-w-7xl mx-auto px-4 mb-8">
                 <div className="flex flex-wrap py-4">
                     <div className=" w-full md:w-1/2 tracking-wide mb-4">
-                        <h2 className="my-4 text-3xl">{song?.name}</h2>
+                        <h2 className="mb-4 mt-2 lg:my-4 text-3xl">{song?.name}</h2>
                         <h3>Autor: &nbsp;&nbsp;{song?.author !== "Sin definir" ? song?.author : null}</h3>
                         <h3>Intensidad: &nbsp;&nbsp;{song?.intensity}</h3>
                         <h3>Tono: &nbsp;&nbsp;{song?.tone}</h3>
