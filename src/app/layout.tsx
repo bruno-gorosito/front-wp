@@ -21,7 +21,7 @@ export default function RootLayout({
       <head>
         <link rel="shortcut icon" href="/favicon/favicon.ico" />
       </head>
-        <body className={inter.className}>
+        <body className={`${inter.className} mt-14 `}>
           <SongProvider>
             <Header />
             {children}

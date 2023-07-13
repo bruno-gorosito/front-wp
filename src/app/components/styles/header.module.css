@@ -14,6 +14,17 @@ header.active {
     object-fit: cover;
 }
 
+.backMenu {
+    position: fixed;
+    top: 10.5rem;
+    z-index: 100;
+    width: 100%;
+    height: calc(100% - 3.4rem);
+    background: transparent;
+    filter: blur(10px);
+    -webkit-filter: blur(10px);
+}
+
 
 
 

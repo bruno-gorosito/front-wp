@@ -13,8 +13,8 @@ const Header = () => {
 
     return (
         <>
-            <header className="select-none lg:bg-gray-200 tracking-wide">
-                <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between h-auto bg-gray-200">
+            <header className="select-none w-full bg-gray-200 tracking-wide top-0 fixed z-20">
+                <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between h-auto ">
                     <h1 className='px-4 w-full lg:w-auto flex justify-between items-center py-1 z-10'>
                         <a href="/" className='flex items-center gap-4 font-medium '>
                             <Image src={logo} alt='logo' className='w-10'/>
@@ -58,6 +58,11 @@ const Header = () => {
                     </ul>
                 </div>
             </header>
+            {/* Para cerrar menu */}
+            <div 
+                className={`${styles.backMenu} ${menu ? 'block' : 'hidden'}`}
+                onClick={() => setMenu(!menu)}
+            ></div>
         </>
     )
 }

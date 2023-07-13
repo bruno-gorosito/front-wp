@@ -12,7 +12,7 @@ const Page = ({params}: {params: {id: String}}) => {
     const [song, setSong] = useState<Song | null>(null);
     const router = useRouter();
 
-    const ola = async() => {
+    const loadSong = async() => {
         const res = await getData(params.id);
         res === undefined ? router.push('/') : null;
         setSong(res);
@@ -20,7 +20,7 @@ const Page = ({params}: {params: {id: String}}) => {
 
 
     useEffect(() => {
-        ola();
+        loadSong();
     }, [])
     
     
@@ -30,10 +30,10 @@ const Page = ({params}: {params: {id: String}}) => {
                 <h2>{song?.name}</h2>
                 <h2>{song?.intensity}</h2>
                 <h2>{song?.tone}</h2>
-                <h2>{song?.lyric}</h2>
+                <p className="whitespace-pre-line">{song?.lyric}</p>
             </div>
 
-            <iframe width="560" height="315" src={`https://www.youtube.com/embed/${song?.idVideo}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;  picture-in-picture; web-share" allowFullScreen></iframe>
+            <iframe className="w-full max-w-lg aspect-video" src={`https://www.youtube.com/embed/${song?.idVideo}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;  picture-in-picture; web-share" allowFullScreen></iframe>
         </>
     )
 }

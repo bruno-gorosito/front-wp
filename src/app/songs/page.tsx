@@ -53,11 +53,11 @@ const Page = () => {
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.tone}</td>
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.intensity}</td>
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">
-                                                <button
-                                                    
+                                                <Link
+                                                    href={`./songs/edit/${song._id}`}
                                                 >
                                                     Editar
-                                                </button>
+                                                </Link>
                                                 <button>
 
                                                 </button>
