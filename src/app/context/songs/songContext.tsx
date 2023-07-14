@@ -8,7 +8,7 @@ import {io} from 'socket.io-client'
 export const SongContext = createContext<SongContextType | null>(null);
 
 
-const SongProvider = ({children, token}: {children: ReactNode, token: String}) => {
+const SongProvider = ({children}: {children: ReactNode}) => {
     const initialState: StateReducer = {
         songs: [],
         songSelected: null,
