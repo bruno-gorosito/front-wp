@@ -66,6 +66,7 @@ const SongProvider = ({children}: {children: ReactNode}) => {
                 
                 
             })
+            
         }
         if (newSong.scale?.toLowerCase() === "menor" && !newSong.tone?.endsWith("m") && newSong.tone?.trim() !== "") {
             newSong.tone = newSong.tone + "m";
