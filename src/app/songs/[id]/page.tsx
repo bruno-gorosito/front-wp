@@ -10,12 +10,14 @@ import { PromiseLikeOfReactNode, ReactElement, ReactNode, ReactPortal, JSXElemen
 const Page = ({params}: {params: {id: String}}) => {
 
     const [song, setSong] = useState<Song | null>(null);
+    const [lyric, setLyric] = useState<String>('')
     const router = useRouter();
 
     const loadSong = async() => {
         const res = await getData(params.id);
         res === undefined ? router.push('/') : null;
         setSong(res);
+
     }
 
 

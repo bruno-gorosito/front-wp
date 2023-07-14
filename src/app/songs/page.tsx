@@ -1,7 +1,7 @@
 'use client'
 
 import { useContext, useEffect } from "react";
-import { SongContext } from "../context/songContext";
+import { SongContext } from "../context/songs/songContext";
 import { axiosClient } from "@/config/axios";
 import Link from "next/link";
 
@@ -21,7 +21,6 @@ const Page = () => {
         
         obtenerSongs();
         context?.socket.on('loadNewSong', (data: any) => {
-            console.log(data)
             obtenerSongs();
         })
     }, [context?.socket])
@@ -50,7 +49,7 @@ const Page = () => {
                                             
                                             </Link>
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.author}</td>
-                                            <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.tone}</td>
+                                            <td className="normal-case whitespace-nowrap px-6 py-4 font-medium">{song.tone}</td>
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.intensity}</td>
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">
                                                 <Link

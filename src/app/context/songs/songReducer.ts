@@ -1,5 +1,5 @@
 import { Reducer } from "react";
-import { ActionsReducer, GET_SONGS, StateReducer } from "../types/Song";
+import { ActionsReducer, GET_SONGS, StateReducer } from "../../types/Song";
 
 
 export const SongReducer: Reducer<StateReducer, ActionsReducer> = (state, action) => {

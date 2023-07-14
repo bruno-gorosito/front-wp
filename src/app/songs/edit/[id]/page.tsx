@@ -5,7 +5,7 @@ import { axiosClient } from "@/config/axios"
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import Swal from 'sweetalert2'
 import { io } from "socket.io-client";
-import { SongContext } from "@/app/context/songContext";
+import { SongContext } from "@/app/context/songs/songContext";
 import { useRouter } from "next/navigation";
 
 
@@ -38,15 +38,63 @@ const Page = ({params}: {params: {id: String}}) => {
     const loadSong = async() => {
         const res = await getData(params.id);
         res === undefined ? router.push('/') : null;
-        if (res.tone?.endsWith('m')) {
+        
+        
+        res.lyric = res.lyric.map(([parte, lineas]: any) => `${parte}\n${lineas.join('\n')}`).join('\n\n');
+        
+
+        if (res.tone?.toLowerCase().endsWith('m')) {
+            let elementos = res.tone.split(""); // Divide la cadena en elementos individuales basados en el espacio
+            elementos.pop(); // Quita el último elemento del array
+            res.tone = elementos.join("").trim().concat(); // Une los elementos nuevamente en una cadena y elimina espacios adicionales
             setSong({...res, scale: 'Menor'})
         } else {
             setSong({...res, scale: 'Mayor'})
         }
+
     }
 
-    const submitNewSong= (e: FormEvent) =>{
+    const submitNewSong = async(e: FormEvent) =>{
         e.preventDefault()
+        try {
+            const res: any = await context?.updateSong(song);
+
+            //CASO CANCION ACTUALIZADA
+            setSong({
+                name:"",
+                author:"",
+                tone: "",
+                scale: "",
+                lyric: "",
+                intensity: ""
+            })
+
+
+            
+            Swal.fire({
+                icon: 'success',
+                title: 'Cancion actualizada',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#06B6D4'
+            })
+
+
+            setTimeout(() => {
+                router.push('/')
+            }, 1000);
+
+            return
+
+        
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Hubo un error',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#06B6D4'
+            })                                                                                                                                                  
+        }
+        
     }
 
 
@@ -138,7 +186,7 @@ const Page = ({params}: {params: {id: String}}) => {
                         </div>
                         <button
                             className="w-full py-2 bg-cyan-500 rounded my-4 text-white"
-                        >Cargar canción</button>
+                        >Actualizar canción</button>
                     </form>
                 </div>
             </div>

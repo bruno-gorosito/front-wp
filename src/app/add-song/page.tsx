@@ -3,7 +3,7 @@
 import { ChangeEvent, FormEvent, useContext, useEffect, useState } from "react";
 import Swal from 'sweetalert2'
 import { io } from "socket.io-client";
-import { SongContext } from "../context/songContext";
+import { SongContext } from "../context/songs/songContext";
 import { Song } from "../types/Song";
 import { useRouter } from "next/navigation";
 import { axiosClient } from "@/config/axios";
@@ -37,9 +37,8 @@ const Page = () => {
     const submitNewSong = async(e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
-        const res: any = await context?.createNewSong(newSong);
-        console.log(res)
-        if (res.status === 200) {
+        try {
+            const res: any = await context?.createNewSong(newSong);
             //CASO CANCION AÑADIDA
             setNewSong({
                 name:"",
@@ -66,11 +65,16 @@ const Page = () => {
             }, 1000);
 
             return
+    
+        } catch (error) {
+            console.log(error)
+            Swal.fire({
+                icon: 'error',
+                title: 'Hubo un error',
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: '#06B6D4'
+            })
         }
-
-
-        
-
     }
 
 

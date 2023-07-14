@@ -1,13 +1,14 @@
 'use client'
 import { createContext, ReactNode, useEffect, useReducer } from "react";
-import { GET_SONGS, Song, SongContextType, StateReducer } from "../types/Song";
+import { GET_SONGS, Song, SongContextType, StateReducer } from "../../types/Song";
 import { SongReducer } from "./songReducer";
 import { axiosClient } from "@/config/axios";
 import {io} from 'socket.io-client'
+
 export const SongContext = createContext<SongContextType | null>(null);
 
 
-const SongProvider = ({children}: {children: ReactNode}) => {
+const SongProvider = ({children, token}: {children: ReactNode, token: String}) => {
     const initialState: StateReducer = {
         songs: [],
         songSelected: null,
@@ -18,7 +19,52 @@ const SongProvider = ({children}: {children: ReactNode}) => {
 
     const [state, dispatch] = useReducer(SongReducer, initialState);
 
+
+    const obtenerCookie = () => {
+        const cookies = document.cookie.split(';')
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.startsWith('x-access-token=')) {
+                return cookie.substring('x-access-token='.length);
+            }
+        }
+        return undefined
+    }
+
+
     const createNewSong = async(newSong: Song) => {
+        
+        newSong = splitAndCleanSong(newSong)
+        
+        const token = obtenerCookie();
+        
+
+        const res = await axiosClient.post('/songs', newSong, {
+            headers: {
+                'x-access-token': token
+            }
+        });
+        return res;
+    }
+
+    const getSongs = async() => {
+        const res = await axiosClient.get('/songs');
+        dispatch({
+            type: GET_SONGS,
+            payload: res.data
+        })
+        console.log(res)
+    }
+
+    const updateSong = async(newSong: Song) => {
+        newSong = splitAndCleanSong(newSong)
+        
+        const res = await axiosClient.put(`/songs/edit/${newSong._id}`, newSong);
+        console.log(res)
+        return res;
+    }
+    
+    const splitAndCleanSong = (newSong: Song) => {
         if (newSong.lyric?.length !== 0) {
             let coro;
             let partes = newSong.lyric?.split('\n\n');
@@ -80,25 +126,12 @@ const SongProvider = ({children}: {children: ReactNode}) => {
         if (newSong.scale?.trim() === '') {
             delete newSong.scale;
         }
-        console.log(newSong.lyric);
         
         const {scale,...newSongWithoutScale} = newSong;
-        console.log(newSongWithoutScale)
-        // console.log(newSong)
-        const res = await axiosClient.post('/songs', newSongWithoutScale);
-        return res;
+        return newSongWithoutScale;
     }
 
-    const getSongs = async() => {
-        const res = await axiosClient.get('/songs');
-        dispatch({
-            type: GET_SONGS,
-            payload: res.data
-        })
-        console.log(res)
-    }
     
-
 
 
 
@@ -109,6 +142,7 @@ const SongProvider = ({children}: {children: ReactNode}) => {
                 socket: state.socket,
                 songs: state.songs,
                 createNewSong,
+                updateSong,
                 getSongs
             }}
         >

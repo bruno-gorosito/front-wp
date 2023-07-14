@@ -1,4 +1,6 @@
 export const GET_SONGS="GET_SONGS"
+
+
 import {Socket} from 'socket.io-client';
 
 
@@ -18,6 +20,7 @@ export interface SongContextType {
     songs: Array<Song>;
     socket: any;
     createNewSong: (newSong: Song) => void;
+    updateSong: (newSong: Song) => void;
     getSongs: () => void;
 }
 
