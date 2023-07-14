@@ -6,6 +6,7 @@ import { io } from "socket.io-client";
 import { SongContext } from "../context/songContext";
 import { Song } from "../types/Song";
 import { useRouter } from "next/navigation";
+import { axiosClient } from "@/config/axios";
 
 
 const Page = () => {
@@ -37,7 +38,7 @@ const Page = () => {
         e.preventDefault();
         
         const res: any = await context?.createNewSong(newSong);
-        console.log(res);
+        console.log(res)
         if (res.status === 200) {
             //CASO CANCION AÑADIDA
             setNewSong({
@@ -48,6 +49,7 @@ const Page = () => {
                 lyric: "",
                 intensity: ""
             })
+
 
             
             Swal.fire({

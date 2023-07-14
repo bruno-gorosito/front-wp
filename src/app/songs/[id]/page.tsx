@@ -30,9 +30,15 @@ const Page = ({params}: {params: {id: String}}) => {
                 <div className="flex flex-wrap py-4">
                     <div className=" w-full md:w-1/2 tracking-wide mb-4">
                         <h2 className="mb-4 mt-2 lg:my-4 text-3xl">{song?.name}</h2>
-                        <h3>Autor: &nbsp;&nbsp;{song?.author !== "Sin definir" ? song?.author : null}</h3>
-                        <h3>Intensidad: &nbsp;&nbsp;{song?.intensity}</h3>
-                        <h3>Tono: &nbsp;&nbsp;{song?.tone}</h3>
+                        <h3 className="capitalize"><span className="font-bold">Autor:</span> &nbsp;&nbsp;{song?.author !== "Sin definir" ? song?.author : null}</h3>
+                        <h3><span className="font-bold">Intensidad:</span> &nbsp;&nbsp;{song?.intensity}</h3>
+                        <h3><span className="font-bold">Tono:</span> &nbsp;&nbsp;{song?.tone}</h3>
+                        <h3 className="mt-2"><span className="font-bold">Estructura:</span></h3>
+                        {song?.lyric.map(parte => (
+                            <p className="capitalize px-4">
+                                - {parte[0]}
+                            </p>
+                        ))}
                     </div>
                     <div className="w-full md:w-1/2 flex justify-end">
                         <iframe className="w-full aspect-video" src={`https://www.youtube.com/embed/${song?.idVideo}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;  picture-in-picture; web-share" allowFullScreen></iframe>
@@ -45,9 +51,20 @@ const Page = ({params}: {params: {id: String}}) => {
                     <h2 className="text-2xl border-b py-2 mb-4">
                         Letra: 
                     </h2>
-                    <p className="whitespace-pre-line">
-                        {song?.lyric}
-                    </p>
+                    {song?.lyric.map(parte => (
+                        <>
+                            <p className="font-bold whitespace-pre-line capitalize mb-1 mt-4">
+                                {parte[0]}
+                            </p>
+                            
+                            {parte[1].map(linea => (
+                                <p className="whitespace-pre-line">
+                                    {linea}
+                                </p>
+                            ))}
+                            
+                        </>
+                    ))}
                 </div>
             </div>
 

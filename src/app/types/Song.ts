@@ -5,7 +5,7 @@ import {Socket} from 'socket.io-client';
 export type Song = {
     tone?: String;
     name: String;
-    lyric?: String;
+    lyric?: Array<String> | String | any;
     author?: String;
     _id?: String;
     scale?: String;
