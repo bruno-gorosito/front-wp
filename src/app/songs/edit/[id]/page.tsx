@@ -45,8 +45,8 @@ const Page = ({params}: {params: {id: String}}) => {
         }
     }
 
-    const submitNewSong= (e: any) =>{
-
+    const submitNewSong= (e: FormEvent) =>{
+        e.preventDefault()
     }
 
 
