@@ -38,7 +38,7 @@ const Page = () => {
                 confirmButtonColor: '#06B6D4'
             })
             document.cookie = `x-access-token=${res.data}`
-            router.push('/')
+            router.back()
         } catch (error) {
             console.log(error)
             Swal.fire({

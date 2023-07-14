@@ -37,7 +37,7 @@ const SongProvider = ({children}: {children: ReactNode}) => {
         newSong = splitAndCleanSong(newSong)
         
         const token = obtenerCookie();
-        
+        console.log(token)
 
         const res = await axiosClient.post('/songs', newSong, {
             headers: {
@@ -53,6 +53,8 @@ const SongProvider = ({children}: {children: ReactNode}) => {
             type: GET_SONGS,
             payload: res.data
         })
+        const token = obtenerCookie();
+        console.log(token)
         console.log(res)
     }
 
