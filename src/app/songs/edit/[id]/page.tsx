@@ -52,7 +52,7 @@ const Page = ({params}: {params: {id: String}}) => {
 
     useEffect(() => {
         loadSong();
-    }, [])
+    }, [context?.socket])
     
     
     return(
