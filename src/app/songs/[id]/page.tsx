@@ -2,7 +2,7 @@
 import { Song } from "@/app/types/Song";
 import { axiosClient } from "@/config/axios";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { PromiseLikeOfReactNode, ReactElement, ReactNode, ReactPortal, JSXElementConstructor, useEffect, useState } from "react";
 
 
 
@@ -34,7 +34,7 @@ const Page = ({params}: {params: {id: String}}) => {
                         <h3><span className="font-bold">Intensidad:</span> &nbsp;&nbsp;{song?.intensity}</h3>
                         <h3><span className="font-bold">Tono:</span> &nbsp;&nbsp;{song?.tone}</h3>
                         <h3 className="mt-2"><span className="font-bold">Estructura:</span></h3>
-                        {song?.lyric.map(parte => (
+                        {song?.lyric.map((parte: (String | Array<String>)[]) => (
                             <p className="capitalize px-4">
                                 - {parte[0]}
                             </p>
@@ -51,13 +51,13 @@ const Page = ({params}: {params: {id: String}}) => {
                     <h2 className="text-2xl border-b py-2 mb-4">
                         Letra: 
                     </h2>
-                    {song?.lyric.map(parte => (
+                    {song?.lyric.map((parte: any[][]) => (
                         <>
                             <p className="font-bold whitespace-pre-line capitalize mb-1 mt-4">
                                 {parte[0]}
                             </p>
                             
-                            {parte[1].map(linea => (
+                            {parte[1].map((linea: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined) => (
                                 <p className="whitespace-pre-line">
                                     {linea}
                                 </p>

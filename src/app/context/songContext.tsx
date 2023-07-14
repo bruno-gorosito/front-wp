@@ -45,7 +45,7 @@ const SongProvider = ({children}: {children: ReactNode}) => {
             //     }
             // })
             //-------------------------------------------
-            newSong.lyric = partes.map(parte => {
+            newSong.lyric = partes.map((parte: String) => { //String le puso vscode para solucionar el problema.
                 const line0 = parte.split('\n')[0];
                 if (line0.toLowerCase().includes('pre-coro') || line0.toLowerCase().includes('precoro')) {
                     return ['pre-coro', parte.split('\n').slice(1)];
