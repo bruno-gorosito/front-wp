@@ -17,6 +17,7 @@ const Page = () => {
         password:""
     })
 
+
     const router = useRouter()
 
     const handleState = (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +39,8 @@ const Page = () => {
                 confirmButtonColor: '#06B6D4'
             })
             document.cookie = `x-access-token=${res.data}`
-            router.back()
+            router.refresh()
+            router.back();
         } catch (error) {
             console.log(error)
             Swal.fire({
