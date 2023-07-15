@@ -39,6 +39,7 @@ const Page = () => {
         
         try {
             const res: any = await context?.createNewSong(newSong);
+            console.log(res)
             //CASO CANCION AÑADIDA
             setNewSong({
                 name:"",

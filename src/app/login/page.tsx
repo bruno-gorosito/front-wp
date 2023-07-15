@@ -32,6 +32,7 @@ const Page = () => {
         console.log(user)
         try {
             const res = await axiosClient.post('/users/login', user); 
+            console.log(res)
             Swal.fire({
                 icon: 'success',
                 title: 'Inicio correcto',

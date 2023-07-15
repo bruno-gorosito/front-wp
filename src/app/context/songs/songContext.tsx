@@ -53,16 +53,19 @@ const SongProvider = ({children}: {children: ReactNode}) => {
             type: GET_SONGS,
             payload: res.data
         })
-        const token = obtenerCookie();
-        console.log(token)
-        console.log(res)
     }
 
     const updateSong = async(newSong: Song) => {
         newSong = splitAndCleanSong(newSong)
-        
-        const res = await axiosClient.put(`/songs/edit/${newSong._id}`, newSong);
-        console.log(res)
+        const token = obtenerCookie();
+        console.log(token)
+
+        const res = await axiosClient.put(`/songs/edit/${newSong._id}`, newSong,{
+            headers: {
+                'x-access-token': token
+            }
+        });
+
         return res;
     }
     
