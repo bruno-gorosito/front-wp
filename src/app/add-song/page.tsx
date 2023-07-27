@@ -61,9 +61,7 @@ const Page = () => {
 
             context?.socket.emit('newSong', newSong)
 
-            setTimeout(() => {
-                router.push('/')
-            }, 1000);
+            setTimeout(()=>router.push('/songs'), 1000)
 
             return
     

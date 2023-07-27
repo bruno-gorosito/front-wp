@@ -12,6 +12,7 @@ interface UserLogin{
 
 const Page = () => {
 
+    
     const [user, setUser] = useState<UserLogin>({
         email:"",
         password:""
@@ -32,16 +33,14 @@ const Page = () => {
         console.log(user)
         try {
             const res = await axiosClient.post('/users/login', user); 
-            console.log(res)
+            document.cookie = `x-access-token=${res.data}`
             Swal.fire({
                 icon: 'success',
                 title: 'Inicio correcto',
                 confirmButtonText: 'Aceptar',
-                confirmButtonColor: '#06B6D4'
+                confirmButtonColor: '#06B6D4',
             })
-            document.cookie = `x-access-token=${res.data}`
-            router.refresh()
-            router.back();
+            setTimeout(()=>router.refresh(), 1500)
         } catch (error) {
             console.log(error)
             Swal.fire({

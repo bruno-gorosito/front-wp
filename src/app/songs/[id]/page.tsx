@@ -16,6 +16,12 @@ const Page = ({params}: {params: {id: String}}) => {
     const loadSong = async() => {
         const res = await getData(params.id);
         res === undefined ? router.push('/') : null;
+        console.log(res.lyric)
+        if (res.lyric[0] == '')  {
+            res.lyric = [['', ['Letra no definida']]]
+        }
+
+        console.log(res)
         setSong(res);
 
     }

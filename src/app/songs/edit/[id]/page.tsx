@@ -79,9 +79,7 @@ const Page = ({params}: {params: {id: String}}) => {
             })
 
 
-            setTimeout(() => {
-                router.push('/')
-            }, 1000);
+            setTimeout(()=>router.refresh(), 1000)
 
             return
 

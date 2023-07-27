@@ -58,7 +58,7 @@ const SongProvider = ({children}: {children: ReactNode}) => {
     const updateSong = async(newSong: Song) => {
         newSong = splitAndCleanSong(newSong)
         const token = obtenerCookie();
-        console.log(token)
+        console.log(newSong)
 
         const res = await axiosClient.put(`/songs/edit/${newSong._id}`, newSong,{
             headers: {
@@ -114,11 +114,10 @@ const SongProvider = ({children}: {children: ReactNode}) => {
                     return ['outro', parte.split('\n').slice(1)];
                 }
                 return ['', parte]
-                
-                
             })
             
         }
+
         if (newSong.scale?.toLowerCase() === "menor" && !newSong.tone?.endsWith("m") && newSong.tone?.trim() !== "") {
             newSong.tone = newSong.tone + "m";
         }
@@ -133,6 +132,7 @@ const SongProvider = ({children}: {children: ReactNode}) => {
         }
         
         const {scale,...newSongWithoutScale} = newSong;
+        console.log(newSongWithoutScale)
         return newSongWithoutScale;
     }
 
