@@ -70,6 +70,7 @@ const SongProvider = ({children}: {children: ReactNode}) => {
     }
     
     const splitAndCleanSong = (newSong: Song) => {
+        console.log(newSong.lyric)
         if (newSong.lyric?.length !== 0) {
             let coro;
             let partes = newSong.lyric?.split('\n\n');
@@ -98,16 +99,16 @@ const SongProvider = ({children}: {children: ReactNode}) => {
             //-------------------------------------------
             newSong.lyric = partes.map((parte: String) => { //String le puso vscode para solucionar el problema.
                 const line0 = parte.split('\n')[0];
-                if (line0.toLowerCase().includes('pre-coro') || line0.toLowerCase().includes('precoro')) {
+                if (line0.toLowerCase().includes('pre-coro') || line0.toLowerCase().includes('precoro') || line0.toLowerCase().includes('pre-chorus')) {
                     return ['pre-coro', parte.split('\n').slice(1)];
                 } else
-                if (line0.toLowerCase().includes('estrofa')) {
+                if (line0.toLowerCase().includes('estrofa') || line0.toLowerCase().includes('verse')) {
                     return ['estrofa', parte.split('\n').slice(1)];
                 }
-                if (line0.toLowerCase().includes('coro')) {
+                if (line0.toLowerCase().includes('coro')  || line0.toLowerCase().includes('chorus')) {
                     return ['coro', parte.split('\n').slice(1)];
                 }
-                if (line0.toLowerCase().includes('puente')) {
+                if (line0.toLowerCase().includes('puente')  || line0.toLowerCase().includes('bridge')) {
                     return ['puente', parte.split('\n').slice(1)];
                 }
                 if (line0.toLowerCase().includes('outro') || line0.toLowerCase().includes('final')) {

@@ -42,11 +42,18 @@ const Page = ({params}: {params: {id: String}}) => {
                         <h3><span className="font-bold">Intensidad:</span> &nbsp;&nbsp;{song?.intensity}</h3>
                         <h3><span className="font-bold">Tono:</span> &nbsp;&nbsp;{song?.tone}</h3>
                         <h3 className="mt-2"><span className="font-bold">Estructura:</span></h3>
-                        {song?.lyric.map((parte: (String | Array<String>)[]) => (
-                            <p className="capitalize px-4">
-                                - {parte[0]}
-                            </p>
-                        ))}
+                        {
+                            song?.lyric.length > 1 
+                                ? (
+                                    song?.lyric.map((parte: (String | Array<String>)[]) => (
+                                    <p className="capitalize px-4">
+                                        - {parte[0]}
+                                    </p>
+                                )))
+                                : (
+                                    <p className="capitalize px-4">Estructura no definida</p>
+                                )
+                        }
                     </div>
                     <div className="w-full md:w-1/2 flex justify-end">
                         <iframe className="w-full aspect-video" src={`https://www.youtube.com/embed/${song?.idVideo}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;  picture-in-picture; web-share" allowFullScreen></iframe>

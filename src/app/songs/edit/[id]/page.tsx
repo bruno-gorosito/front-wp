@@ -79,7 +79,7 @@ const Page = ({params}: {params: {id: String}}) => {
             })
 
 
-            setTimeout(()=>router.refresh(), 1000)
+            setTimeout(()=>router.push('/songs'), 1000)
 
             return
 
