@@ -54,6 +54,7 @@ const SongProvider = ({children}: {children: ReactNode}) => {
             payload: res.data
         })
     }
+    
 
     const updateSong = async(newSong: Song) => {
         newSong = splitAndCleanSong(newSong)
