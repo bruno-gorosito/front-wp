@@ -12,6 +12,11 @@
 /.next/
 /out/
 
+
+# Google Drive
+google-drive.json
+
+
 # dotenv environment variable files
 .env
 .env.development.local

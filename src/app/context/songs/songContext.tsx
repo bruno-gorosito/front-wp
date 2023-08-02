@@ -71,8 +71,7 @@ const SongProvider = ({children}: {children: ReactNode}) => {
     }
     
     const splitAndCleanSong = (newSong: Song) => {
-        console.log(newSong.lyric)
-        if (newSong.lyric?.length !== 0) {
+        // if (newSong.lyric?.length !== 0) {
             let coro;
             let partes = newSong.lyric?.split('\n\n');
             // --------- LOGICA PARA SEPARAR EN ESTROFAS Y CORO AUTOMATICAMENTE
@@ -115,10 +114,10 @@ const SongProvider = ({children}: {children: ReactNode}) => {
                 if (line0.toLowerCase().includes('outro') || line0.toLowerCase().includes('final')) {
                     return ['outro', parte.split('\n').slice(1)];
                 }
-                return ['', parte]
+                return ['', [parte]]
             })
             
-        }
+        // }
 
         if (newSong.scale?.toLowerCase() === "menor" && !newSong.tone?.endsWith("m") && newSong.tone?.trim() !== "") {
             newSong.tone = newSong.tone + "m";

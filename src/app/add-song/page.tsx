@@ -17,6 +17,7 @@ const Page = () => {
     const grado = ["Do", "Do#", "Re", "Re#", "Mi", "Fa", "Fa#", "Sol", "Sol#", "La", "La#", "Si"];
     const menOMay = ["Mayor", "Menor"];
     const intensities = ["Lenta", "Intermedia", "Rapida"];
+    const [file, setFile] = useState<any>(null);
     const [newSong, setNewSong] = useState<Song>({
         name:"",
         author:"",
@@ -36,7 +37,7 @@ const Page = () => {
 
     const submitNewSong = async(e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+        console.log(file)
         try {
             const res: any = await context?.createNewSong(newSong);
             console.log(res)
@@ -157,6 +158,15 @@ const Page = () => {
                                 onChange={e => handleState(e)}
                             >
                             </textarea>
+                        </div>
+                        <div>
+                            <label className="w-full lg:w-1/6 lg:text-right lg:px-10 my-2">Letra: </label>
+                            <input 
+                                // className=" w-full normal-case lg:w-5/6 border border-black/30 rounded p-2 block outline-1 h-96"
+                                name="file"
+                                type="file"
+                                onChange={e => setFile(e.target.value)}
+                            />
                         </div>
                         <button
                             className="w-full py-2 bg-cyan-500 rounded my-4 text-white"

@@ -20,8 +20,6 @@ const Page = ({params}: {params: {id: String}}) => {
         if (res.lyric[0] == '')  {
             res.lyric = [['', ['Letra no definida']]]
         }
-
-        console.log(res)
         setSong(res);
 
     }
@@ -66,20 +64,27 @@ const Page = ({params}: {params: {id: String}}) => {
                     <h2 className="text-2xl border-b py-2 mb-4">
                         Letra: 
                     </h2>
-                    {song?.lyric.map((parte: any[][]) => (
-                        <>
-                            <p className="font-bold whitespace-pre-line capitalize mb-1 mt-4">
-                                {parte[0]}
-                            </p>
-                            
-                            {parte[1].map((linea: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined) => (
-                                <p className="whitespace-pre-line">
-                                    {linea}
-                                </p>
-                            ))}
-                            
-                        </>
-                    ))}
+                    {song?.lyric.length > 1 
+                        ? (
+                            song?.lyric.map((parte: any[][]) => (
+                                <>
+                                    <p className="font-bold whitespace-pre-line capitalize mb-1 mt-4">
+                                        {parte[0]}
+                                    </p>
+                                    
+                                    {parte[1].map((linea: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | PromiseLikeOfReactNode | null | undefined) => (
+                                        <p className="whitespace-pre-line">
+                                            {linea}
+                                        </p>
+                                    ))}
+                                    
+                                </>
+                            ))
+                        )
+                        : <p className="whitespace-pre-line">
+                            Letra no definida
+                        </p>
+                    }
                 </div>
             </div>
 
