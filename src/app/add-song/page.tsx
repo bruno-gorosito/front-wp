@@ -35,11 +35,15 @@ const Page = () => {
     }
 
 
-    const submitNewSong = async(e: FormEvent<HTMLFormElement>) => {
+    const submitNewSong = async(e: any) => {
         e.preventDefault();
-        console.log(file)
+        const {name, author, tone, scale, lyric, intensity} = newSong
+        const fileInput = e.target.elements.file;
+        const file = fileInput.files[0];
+        const fileData = new FormData();
+        fileData.append('file', file); // Agrega el archivo al FormData
         try {
-            const res: any = await context?.createNewSong(newSong);
+            const res: any = await context?.createNewSong(newSong, fileData);
             console.log(res)
             //CASO CANCION AÑADIDA
             setNewSong({
@@ -85,6 +89,7 @@ const Page = () => {
                     <form
                         onSubmit={e => submitNewSong(e)}
                         className="flex flex-wrap gap-y-4 px-4"
+                        encType="multipart/form-data"
                     >
                         <h2 className="text-3xl text-center w-full my-6">
                             Agregar una canción
@@ -94,7 +99,7 @@ const Page = () => {
                             <input 
                                 type="text"
                                 name="name"
-                                value={`${newSong.name}`}
+                                // value={`${newSong.name}`}
                                 onChange={e => handleState(e)}
                                 className=" w-full lg:w-5/6 border border-black/30 rounded px-4 py-1 block outline-1"
                             />
@@ -160,12 +165,11 @@ const Page = () => {
                             </textarea>
                         </div>
                         <div>
-                            <label className="w-full lg:w-1/6 lg:text-right lg:px-10 my-2">Letra: </label>
+                            <label className="w-full lg:w-1/6 lg:text-right lg:px-10 my-2">Acordes: </label>
                             <input 
                                 // className=" w-full normal-case lg:w-5/6 border border-black/30 rounded p-2 block outline-1 h-96"
                                 name="file"
                                 type="file"
-                                onChange={e => setFile(e.target.value)}
                             />
                         </div>
                         <button

@@ -4,6 +4,7 @@ import { GET_SONGS, Song, SongContextType, StateReducer } from "../../types/Song
 import { SongReducer } from "./songReducer";
 import { axiosClient } from "@/config/axios";
 import {io} from 'socket.io-client'
+import axios from "axios";
 
 export const SongContext = createContext<SongContextType | null>(null);
 
@@ -32,20 +33,47 @@ const SongProvider = ({children}: {children: ReactNode}) => {
     }
 
 
-    const createNewSong = async(newSong: Song) => {
+    const createNewSong = async(newSong: Song, file?: any) => {
         
         newSong = splitAndCleanSong(newSong)
+
+        
         
         const token = obtenerCookie();
-        console.log(token)
-
-        const res = await axiosClient.post('/songs', newSong, {
+        
+        file.append('newSong', JSON.stringify(newSong))
+        const res = await axiosClient.post('/songs', file, {
             headers: {
-                'x-access-token': token
+                'x-access-token': token,
+                "Content-Type":'multipart/form-data'
             }
         });
         return res;
     }
+
+    const downloadChords = async (idFile: String) => {
+        try {
+          const response = await axiosClient.get(`/songs/download/${idFile}`, {
+            responseType: 'arraybuffer',
+          });
+      
+          // Obtener el nombre del archivo desde el encabezado "Content-Disposition"
+          const contentDisposition = response.request.getResponseHeader('Content-Disposition');
+          const match = contentDisposition.match(/filename="(.+)"/);
+          const filename = match ? match[1] : 'archivo_descargado.pdf';
+          console.log(filename)
+          const blob = new Blob([response.data], { type: 'application/pdf' });
+      
+          const url = URL.createObjectURL(blob);
+      
+          const enlace = document.createElement('a');
+          enlace.href = url;
+          enlace.download = filename; // Utilizar el nombre del archivo desde el encabezado "Content-Disposition"
+          enlace.click();
+        } catch (error) {
+          console.error('Error al descargar el archivo:', error);
+        }
+    };
 
     const getSongs = async() => {
         const res = await axiosClient.get('/songs');
@@ -149,7 +177,8 @@ const SongProvider = ({children}: {children: ReactNode}) => {
                 songs: state.songs,
                 createNewSong,
                 updateSong,
-                getSongs
+                getSongs,
+                downloadChords
             }}
         >
             {children}

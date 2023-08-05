@@ -17,6 +17,12 @@ const Page = () => {
         console.log(context?.songs)
     }
 
+    const downloadFile = (idFile: String) => {
+        console.log(idFile)
+        const res = context?.downloadChords(idFile)
+    }
+
+
     useEffect(() => {
         
         obtenerSongs();
@@ -51,14 +57,17 @@ const Page = () => {
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.author}</td>
                                             <td className="normal-case whitespace-nowrap px-6 py-4 font-medium">{song.tone}</td>
                                             <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">{song.intensity}</td>
-                                            <td className="capitalize whitespace-nowrap px-6 py-4 font-medium">
+                                            <td className="capitalize whitespace-nowrap  font-medium">
                                                 <Link
                                                     href={`./songs/edit/${song._id}`}
                                                 >
                                                     Editar
                                                 </Link>
-                                                <button>
-
+                                                <button
+                                                    className="bg-green-400 p-2 mx-2 rounded"
+                                                    onClick={() => downloadFile(song.chords)}
+                                                >
+                                                    Acordes
                                                 </button>
                                             </td>
                                         </tr>
