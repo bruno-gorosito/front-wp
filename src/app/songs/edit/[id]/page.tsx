@@ -37,26 +37,26 @@ const Page = ({params}: {params: {id: String}}) => {
 
     const loadSong = async() => {
         const res = await getData(params.id);
-        // res === undefined ? router.push('/') : null;
+        res === undefined ? router.push('/') : null;
         
         
-        // if (res.lyric.length > 1) {
-        //     res.lyric = res.lyric.map(([parte, lineas]: any) => `${parte}\n${lineas.join('\n')}`).join('\n\n');
-        // } else {
-        //     console.log(res.lyric)
-        //     res.lyric = res.lyric[0][1].join();
-        //     console.log(res.lyric)
-        // }
+        if (res.lyric.length > 1) {
+            res.lyric = res.lyric.map(([parte, lineas]: any) => `${parte}\n${lineas.join('\n')}`).join('\n\n');
+        } else {
+            console.log(res.lyric)
+            res.lyric = res.lyric[0][1].join();
+            console.log(res.lyric)
+        }
         
 
-        // if (res.tone?.toLowerCase().endsWith('m')) {
-        //     let elementos = res.tone.split(""); // Divide la cadena en elementos individuales basados en el espacio
-        //     elementos.pop(); // Quita el último elemento del array
-        //     res.tone = elementos.join("").trim().concat(); // Une los elementos nuevamente en una cadena y elimina espacios adicionales
-        //     setSong({...res, scale: 'Menor'})
-        // } else {
-        //     setSong({...res, scale: 'Mayor'})
-        // }
+        if (res.tone?.toLowerCase().endsWith('m')) {
+            let elementos = res.tone.split(""); // Divide la cadena en elementos individuales basados en el espacio
+            elementos.pop(); // Quita el último elemento del array
+            res.tone = elementos.join("").trim().concat(); // Une los elementos nuevamente en una cadena y elimina espacios adicionales
+            setSong({...res, scale: 'Menor'})
+        } else {
+            setSong({...res, scale: 'Mayor'})
+        }
 
     }
 
